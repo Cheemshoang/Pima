@@ -5,8 +5,6 @@ import numpy as np
 n,m = input().split()
 n = int(n)
 m = int(m)
-print(n,m)
-A = np.zeros((n+1,2*m+1))
 def make_matrix(n,m):
   even = True
   if n%2 == 1:
