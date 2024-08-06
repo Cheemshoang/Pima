@@ -4,13 +4,10 @@ from matplotlib.colors import Normalize
 from InputmnNash import make_matrix
 import matplotlib.cm as cm
 
-
-
-
-
 A = make_matrix(n,m)
 A_x = A.shape[0]
 A_y = A.shape[1]
+
 def payoff(arr1, arr2, matrix):
   return arr1 @ matrix @ arr2.T
 
