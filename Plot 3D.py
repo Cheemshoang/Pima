@@ -3,31 +3,13 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 import matplotlib.cm as cm
 import plotly.graph_objects as go
-
-def make_matrix(n,m):
-  even = True
-  if n%2 == 1:
-    n = n+1
-    even = False
-  A = np.zeros((n+1,2*m+1))
-  for k in range(1,n+1):
-    for t in range(1,2*m+1):
-      if k%2 == 0 and 1 <= t <= m:
-        A[k][t] =  -t
-      elif k%2 == 0 and m+1 <= t <= 2*m:
-        A[k][t] = k
-      elif k%2 == 1 and 1 <= t <= m:
-        A[k][t] = k
-      elif k%2 == 1 and m+1 <= t <= 2*m:
-        A[k][t] = m-t
-  A = A[1:]
-  A = A[:,1:]
-  if even == False:
-    A = A[:-1]
-  return A
+from InputmnNash import make_matrix
+from InputmnNash import Nashnm
 
 
-A = make_matrix(n, m)
+n, m = map(int, input().split())
+w1,array1,w2,array2 = Nashnm(n,m)
+A = make_matrix(n,m)
 A_x = A.shape[0]
 A_y = A.shape[1]
 def payoff(arr1, arr2, matrix):
