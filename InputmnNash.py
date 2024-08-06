@@ -2,9 +2,11 @@ import scipy.optimize as so
 from scipy.optimize import linprog
 import numpy as np
 
+
 n,m = input().split()
 n = int(n)
 m = int(m)
+
 def make_matrix(n,m):
   even = True
   if n%2 == 1:
@@ -27,80 +29,87 @@ def make_matrix(n,m):
     A = A[:-1]
   return A
 
-matrix_np = make_matrix(n,m)
-min_value = np.min(matrix_np)
-matrix_np = matrix_np - min_value + 1
-x,y  = matrix_np.shape
-# for i in range(x):
-#   for j in range(y):
-#     matrix_np[i][j] += matrix_np[x-1][y-1] +1
 
-#P1
-c = np.ones(x)
-A_ub = -matrix_np.T
-b_ub = -np.ones(y)
+def Nashnm(n,m):
+  A = np.zeros((n+1,2*m+1))
+  matrix_np = make_matrix(n,m)
+  min_value = np.min(matrix_np)
+  matrix_np = matrix_np - min_value + 1
+  x,y  = matrix_np.shape
 
 
-A_eq = None
-b_eq = None
-
-bounds = [
-    (0, None)
-    for i in range(len(c))
-]
-
-result = linprog(
-    c=c,
-    A_ub=A_ub,
-    b_ub=b_ub,
-    A_eq=A_eq,
-    b_eq=b_eq,
-    bounds=bounds,
-)
+  output = []
+  #P1
+  c = np.ones(x)
+  A_ub = -matrix_np.T
+  b_ub = -np.ones(y)
 
 
-if result.success:
-  w = 1/result.fun
-  array1 = w * result.x
-  w = w + min_value - 1
-  print("v_1 = ", w)
-  print("X_0", array1)
-else:  print("No solution found. The problem might be infeasible or unbounded.")
+  A_eq = None
+  b_eq = None
+
+  bounds = [
+      (0, None)
+      for i in range(len(c))
+  ]
+
+  result = linprog(
+      c=c,
+      A_ub=A_ub,
+      b_ub=b_ub,
+      A_eq=A_eq,
+      b_eq=b_eq,
+      bounds=bounds,
+  )
 
 
-#P2
-c = -np.ones(y)
+  if result.success:
+    w1 = 1/result.fun
+    array1 = w1 * result.x
+    w1 = w1 + min_value - 1
+    output.append(w1)
+    output.append(array1)
+  else:
+    print("No solution found. The problem might be infeasible or unbounded.")
+    return
 
 
-A_ub = matrix_np
-b_ub = np.ones(x)
+  #P2
+  c = -np.ones(y)
 
 
-A_eq = None
-b_eq = None
+  A_ub = matrix_np
+  b_ub = np.ones(x)
 
 
-bounds = [
-    (0, None)
-    for i in range(len(c))
-]
+  A_eq = None
+  b_eq = None
 
 
-result = linprog(
-    c=c,
-    A_ub=A_ub,
-    b_ub=b_ub,
-    A_eq=A_eq,
-    b_eq=b_eq,
-    bounds=bounds,
-)
+  bounds = [
+      (0, None)
+      for i in range(len(c))
+  ]
 
 
-if result.success:
-  w = -1/result.fun
-  array2 = w * result.x
-  w = w + min_value - 1
-  print("v_2 = ", w)
-  print("Y_0" , array2)
-else:
-  print("No solution found. The problem might be infeasible or unbounded.")
+  result = linprog(
+      c=c,
+      A_ub=A_ub,
+      b_ub=b_ub,
+      A_eq=A_eq,
+      b_eq=b_eq,
+      bounds=bounds,
+  )
+
+
+  if result.success:
+    w2 = -1/result.fun
+    array2 = w2 * result.x
+    w2 = w2 + min_value - 1
+    output.append(w2)
+    output.append(array2)
+  else:
+    print("No solution found. The problem might be infeasible or unbounded.")
+    return
+  return output
+Nashnm(n,m)
