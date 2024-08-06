@@ -11,7 +11,7 @@ def input_matrix():
 
 
 
-def Nash(matrix_list):
+def NashMatrix(matrix_list):
   output = []
   matrix_np = np.array(matrix_list)
   min_value = np.min(matrix_np)
@@ -93,4 +93,4 @@ def Nash(matrix_list):
 
 #Main
 matrix = input_matrix()
-Nash(matrix)
+NashMatrix(matrix)
