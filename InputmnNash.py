@@ -2,11 +2,6 @@ import scipy.optimize as so
 from scipy.optimize import linprog
 import numpy as np
 
-
-n,m = input().split()
-n = int(n)
-m = int(m)
-
 def make_matrix(n,m):
   even = True
   if n%2 == 1:
@@ -28,7 +23,6 @@ def make_matrix(n,m):
   if even == False:
     A = A[:-1]
   return A
-
 
 def Nashnm(n,m):
   A = np.zeros((n+1,2*m+1))
@@ -112,4 +106,7 @@ def Nashnm(n,m):
     print("No solution found. The problem might be infeasible or unbounded.")
     return
   return output
+  
+#main
+n, m = map(int, input().split())
 Nashnm(n,m)
