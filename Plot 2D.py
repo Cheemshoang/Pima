@@ -2,8 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from InputmnNash import make_matrix
+from InputmnNash import Nashnm
 import matplotlib.cm as cm
 
+
+n, m = map(int, input().split())
+w1,array1,w2,array2 = Nashnm(n,m)
 A = make_matrix(n,m)
 A_x = A.shape[0]
 A_y = A.shape[1]
